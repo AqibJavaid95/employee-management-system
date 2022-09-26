@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import EmployeeService from '../services/EmployeeService'
 
 const ListEmployeeComponent = () => {
@@ -19,7 +20,8 @@ const ListEmployeeComponent = () => {
 
     return (
         <div className='container'>
-            <h2 className = "text-center">CodeClan Employees</h2> 
+            <h2 className = "text-center">CodeClan Employees</h2>
+            <Link to = "/add-employee" className='btn btn-primary mb-2'>Add Employee</Link> {/* creates add employee button */}
             <table className="table table-bordered table-striped">
                 <thead>
                     <th> Employee Id</th>
