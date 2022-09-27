@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import {Link, useNavigate} from 'react-router-dom';
+import EmployeeService from '../services/EmployeeService'
 
 const AddEmployeeComponent = () => {
 
@@ -6,13 +8,22 @@ const AddEmployeeComponent = () => {
     const [lastName, setLastName] = useState('')
     const [role, setRole] = useState('')
     const [location, setLocation] = useState('')
+    const navigate = useNavigate();
     
     const saveEmployee = (e) => {
         e.preventDefault(); //prevents page from refreshing whenever we submit the form
 
         const employee = {firstName, lastName, role, location}
 
-        console.log(employee);
+        EmployeeService.createEmployee(employee).then((response) => {
+
+            console.log(response.data)
+
+            navigate.push('/employees');
+
+        }).catch(error => {
+            console.log(error)
+        })
 
     }
 
@@ -78,6 +89,7 @@ const AddEmployeeComponent = () => {
                                 </div>
 
                                 <button className='btn btn-success float-end' onClick={(e) => saveEmployee(e)}>Submit</button>
+                                <Link to="/employees" className="btn btn-danger float-end"> Cancel </Link>
 
                             </form>
                         </div>
