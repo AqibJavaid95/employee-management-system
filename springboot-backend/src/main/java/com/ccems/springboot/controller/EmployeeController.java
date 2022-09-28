@@ -31,7 +31,24 @@ public class EmployeeController { //handles http requests, and will define rest 
     @GetMapping("{id}") //gets employee by id
     public ResponseEntity<Employee> getEmployeeById(@PathVariable long id){ //ResponseEntity class constructs response of the REST API, also created getEmployeeById method
         Employee employee = employeeRepository.findById(id) //using employee repository to get the employee object from the database
-                .orElseThrow(() -> new ResourceNotFoundException("Employee does not exist with id:" + id)); //exception handling
+                .orElseThrow(() -> new ResourceNotFoundException("Employee does not exist with id: " + id)); //exception handling
         return ResponseEntity.ok(employee); //ok method provides status code 200
+    }
+
+    //builds update employee REST API
+    @PutMapping("{id}") //updates employee object
+    public ResponseEntity<Employee> updateEmployee(@PathVariable long id, @RequestBody Employee employeeDetails){ //client calls updateEmployee REST API which sends updated employee information in the request which is bound to the employeeDetails object
+        Employee updateEmployee = employeeRepository.findById(id) //using employee repository to get the employee object from the database
+                .orElseThrow(() -> new ResourceNotFoundException("Employee does not exist with id: " + id)); //exception handling
+
+        //retrieves new info from employeeDetails and updates updateEmployee object with new info
+        updateEmployee.setFirstName(employeeDetails.getFirstName());
+        updateEmployee.setLastName(employeeDetails.getLastName());
+        updateEmployee.setRole(employeeDetails.getRole());
+        updateEmployee.setLocation(employeeDetails.getLocation());
+
+        employeeRepository.save(updateEmployee); //saves the updated updateEmployee object to the database
+
+        return ResponseEntity.ok(updateEmployee); //returns updated information to the client
     }
 }
