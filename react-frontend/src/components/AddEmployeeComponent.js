@@ -11,20 +11,31 @@ const AddEmployeeComponent = () => {
     const navigate = useNavigate(); //returns user to list of employees page
     const {id} = useParams(); //provides object which contains key/value pairs
     
-    const saveEmployee = (e) => {
+    const saveOrUpdateEmployee = (e) => {
         e.preventDefault(); //prevents page from refreshing whenever we submit the form
 
         const employee = {firstName, lastName, role, location}
 
-        EmployeeService.createEmployee(employee).then((response) => {
+        if(id){ //checks if id contains any value and if it does then calls updateEmployee function, if not then calls createEmployee function
+            EmployeeService.updateEmployee(id, employee).then((response) =>{
+            
+            navigate.push('/employees'); //returns user to list of employees page
 
-            console.log(response.data)
+            }).catch(error =>{ //exception handling
+                console.log(error);
+            })
 
-            navigate.push('/employees'); //returns user to list of employees page 
+        }else{
+            EmployeeService.createEmployee(employee).then((response) => {
 
-        }).catch(error => {
-            console.log(error)
-        })
+                console.log(response.data)
+    
+                navigate.push('/employees'); //returns user to list of employees page 
+    
+            }).catch(error => { //exception handling
+                console.log(error)
+            })
+        }
 
     }
 
@@ -34,6 +45,7 @@ const AddEmployeeComponent = () => {
             setFirstName(response.data.firstName)
             setLastName(response.data.lastName)
             setRole(response.data.role)
+            setLocation(response.data.location)
         }).catch(error => {
             console.log(error) 
         })
@@ -111,7 +123,7 @@ const AddEmployeeComponent = () => {
                                     </input>
                                 </div>
 
-                                <button className='btn btn-success float-end' onClick={(e) => saveEmployee(e)}>Submit</button>
+                                <button className='btn btn-success float-end' onClick={(e) => saveOrUpdateEmployee(e)}>Submit</button>
                                 <Link to="/employees" className="btn btn-danger float-end"> Cancel </Link> {/* cancel button which returns user to list of employees page */}
 
                             </form>
