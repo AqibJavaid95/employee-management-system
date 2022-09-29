@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import {Link, useNavigate} from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import EmployeeService from '../services/EmployeeService'
 
 const AddEmployeeComponent = () => {
@@ -8,7 +8,8 @@ const AddEmployeeComponent = () => {
     const [lastName, setLastName] = useState('')
     const [role, setRole] = useState('')
     const [location, setLocation] = useState('')
-    const navigate = useNavigate();
+    const navigate = useNavigate(); //returns user to list of employees page
+    const {id} = useParams(); //provides object which contains key/value pairs
     
     const saveEmployee = (e) => {
         e.preventDefault(); //prevents page from refreshing whenever we submit the form
@@ -19,12 +20,32 @@ const AddEmployeeComponent = () => {
 
             console.log(response.data)
 
-            navigate.push('/employees');
+            navigate.push('/employees'); //returns user to list of employees page 
 
         }).catch(error => {
             console.log(error)
         })
 
+    }
+
+    useEffect(() => {
+
+        EmployeeService.getEmployeeById(id).then((response) => { //makes a rest api call to retrieve the employee object
+            setFirstName(response.data.firstName)
+            setLastName(response.data.lastName)
+            setRole(response.data.role)
+        }).catch(error => {
+            console.log(error) 
+        })
+    }, )
+
+    const title = () => {
+
+        if(id){ //checks if id contains any values
+            return <h2 className='text-center'>Edit Employee</h2>
+        }else{
+            return <h2 className='text-center'>Add Employee</h2>
+        }
     }
 
     return (
@@ -33,7 +54,9 @@ const AddEmployeeComponent = () => {
             <div className='container'>
                 <div className='row'>
                     <div className='card col-md-6 offset-md-3 offset-md-3'>
-                        <h2 className='text-center mt-3'> Add Employee </h2>
+                        {
+                            title() //dynamically updates header to show edit employee or add employee based on whether id has a value
+                        }
                         <div className='card-body clearfix'>
                             <form>
                                 <div className='form-group mb-2'>
@@ -89,7 +112,7 @@ const AddEmployeeComponent = () => {
                                 </div>
 
                                 <button className='btn btn-success float-end' onClick={(e) => saveEmployee(e)}>Submit</button>
-                                <Link to="/employees" className="btn btn-danger float-end"> Cancel </Link>
+                                <Link to="/employees" className="btn btn-danger float-end"> Cancel </Link> {/* cancel button which returns user to list of employees page */}
 
                             </form>
                         </div>

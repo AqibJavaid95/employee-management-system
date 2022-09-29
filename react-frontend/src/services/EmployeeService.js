@@ -11,6 +11,10 @@ class EmployeeService{
     createEmployee(employee){
         return axios.post(EMPLOYEE_BASE_REST_API_URL, employee) //employee object contains the form data which gets passed to the rest api which stores it into the database
     }
+
+    getEmployeeById(employeeId){
+        return axios.get(EMPLOYEE_BASE_REST_API_URL + '/' + employeeId); //returns an employee object using its unique ID from the database
+    }
 }
 
 export default new EmployeeService();
