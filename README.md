@@ -1,7 +1,7 @@
-# employee-management-system
+# Employee Management System
 
 ## Overview
-fdsjkfhdshfkjdsahjglksfhnfs,nbvg,dfsgnkfsngvfsngv,fs
+A full-stack employee management application with full CRUD functionality allowing the user to create, edit, delete and view a list of employees. The application uses Javascript (React) for the front-end and Java (Spring Boot) for the RESTful API back-end and uses MySQL to store and retrieve the data.
 
 ## Instructions for Running
 
