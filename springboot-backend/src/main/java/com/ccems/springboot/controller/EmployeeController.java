@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/employees") //defining a common base url for our rest apis
 public class EmployeeController { //handles http requests, and will define rest api methods within this class

@@ -10,7 +10,7 @@ const AddEmployeeComponent = () => {
     const [location, setLocation] = useState('')
     const navigate = useNavigate(); //returns user to list of employees page
     const {id} = useParams(); //provides object which contains key/value pairs
-    
+
     const saveOrUpdateEmployee = (e) => {
         e.preventDefault(); //prevents page from refreshing whenever we submit the form
 
@@ -19,7 +19,7 @@ const AddEmployeeComponent = () => {
         if(id){ //checks if id contains any value and if it does then calls updateEmployee function, if not then calls createEmployee function
             EmployeeService.updateEmployee(id, employee).then((response) =>{
             
-            navigate.push('/employees'); //returns user to list of employees page
+            navigate('/employees'); //returns user to list of employees page
 
             }).catch(error =>{ //exception handling
                 console.log(error);
@@ -30,7 +30,7 @@ const AddEmployeeComponent = () => {
 
                 console.log(response.data)
     
-                navigate.push('/employees'); //returns user to list of employees page 
+                navigate('/employees'); //returns user to list of employees page 
     
             }).catch(error => { //exception handling
                 console.log(error)
@@ -41,22 +41,24 @@ const AddEmployeeComponent = () => {
 
     useEffect(() => {
 
-        EmployeeService.getEmployeeById(id).then((response) => { //makes a rest api call to retrieve the employee object
-            setFirstName(response.data.firstName)
-            setLastName(response.data.lastName)
-            setRole(response.data.role)
-            setLocation(response.data.location)
-        }).catch(error => {
-            console.log(error) 
-        })
-    }, )
+        if(id){
+            EmployeeService.getEmployeeById(id).then((response) => { //makes a rest api call to retrieve the employee object
+                setFirstName(response.data.firstName)
+                setLastName(response.data.lastName)
+                setRole(response.data.role)
+                setLocation(response.data.location)
+            }).catch(error => {
+                console.log(error) 
+            })
+        }
+    }, [])
 
     const title = () => {
 
         if(id){ //checks if id contains any values
-            return <h2 className='text-center'>Edit Employee</h2>
+            return <h2 className='text-center mt-2'>Edit Employee</h2>
         }else{
-            return <h2 className='text-center'>Add Employee</h2>
+            return <h2 className='text-center mt-2'>Add Employee</h2>
         }
     }
 
