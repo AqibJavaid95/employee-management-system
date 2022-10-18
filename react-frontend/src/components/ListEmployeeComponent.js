@@ -6,17 +6,29 @@ const ListEmployeeComponent = () => {
 
     const [employees, setEmployees] = useState([]) // setting the initial state of employees as an empty array
 
-    useEffect(() => { 
+    useEffect(() => {
 
+        getAllEmployees();
+
+    }, [])
+
+    const getAllEmployees = () => {
         EmployeeService.getAllEmployees().then((response) => {
             setEmployees(response.data)
             console.log(response.data);
         }).catch(error => {
             console.log(error);
         })
+    }
     
-    }, [])
-    
+    const deleteEmployee = (employeeId) => {
+        EmployeeService.deleteEmployee(employeeId).then((response) => {
+            getAllEmployees();
+
+        }).catch(error => {
+            console.log(error);
+        })
+    }
 
     return (
         <div className='container'>
@@ -24,32 +36,34 @@ const ListEmployeeComponent = () => {
             <Link to = "/add-employee" className='btn btn-primary mb-2'>Add Employee</Link> {/* creates add employee button */}
             <table className="table table-bordered table-striped">
                 <thead>
-                    <th> Employee Id</th>
-                    <th> Employee First Name </th>
-                    <th> Employee Last Name </th>
-                    <th> Employee Role </th>
-                    <th> Employee Location </th>
-                    <th> Actions </th>
+                    <tr>
+                        <th> Employee Id</th>
+                        <th> Employee First Name </th>
+                        <th> Employee Last Name </th>
+                        <th> Employee Role </th>
+                        <th> Employee Location </th>
+                        <th> Actions </th>
+                    </tr>
                 </thead>
                 <tbody>
                     {
                         employees.map( //iterates over our array of employees
                             employee =>
-                            <tr key = {employee.id}> {/* creates unique key for each employee */}
-                                <td> {employee.id} </td>
-                                <td> {employee.firstName} </td>
-                                <td> {employee.lastName} </td>
-                                <td> {employee.role} </td>
-                                <td> {employee.location} </td>
+                            <tr key={employee.id}>{/* creates unique key for each employee */}
+                                <td>{employee.id}</td>
+                                <td>{employee.firstName}</td>
+                                <td>{employee.lastName}</td>
+                                <td>{employee.role}</td>
+                                <td>{employee.location}</td>
                                 <td>
                                     <Link className='btn btn-info' to={`/edit-employee/${employee.id}`}> Edit </Link>
+                                    <button className='btn btn-danger ms-1' onClick={() => deleteEmployee(employee.id)}> Delete </button>
                                 </td>
                             </tr>
                         )
                     }
                 </tbody>
             </table>
-
         </div>
     )
 }
