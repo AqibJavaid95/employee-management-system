@@ -8,8 +8,8 @@ const AddEmployeeComponent = () => {
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
     const [role, setRole] = useState('')
-    const [department, setDepartment] = useState('')
-    const [location, setLocation] = useState('')
+    const [department, setDepartment] = useState('select-department')
+    const [location, setLocation] = useState('select-location')
     const navigate = useNavigate(); //returns user to list of employees page
     const {id} = useParams(); //provides object which contains key/value pairs
 
@@ -130,29 +130,25 @@ const AddEmployeeComponent = () => {
                                 </div>
 
                                 <div className='form-group mb-2'>
-                                    <label className='form-label'> Department: </label>
-                                    <input
-                                        type = 'text'
-                                        placeholder='Choose department'
-                                        name='department'
-                                        className='form-control'
-                                        value={department} //getting the value using state
-                                        onChange={(e) => setDepartment(e.target.value)} //calls setDepartment function to update state value
-                                    >
-                                    </input>
+                                    <label className='form-label'> Department: </label><br></br>
+                                    <select className='form-control' defaultValue={department} value={department} onChange={(e)=> setDepartment(e.target.value)}> {/* creates dropdown options for choosing department */}
+                                        <option name='department' value='select-department' disabled>Select your department...</option> {/* sets this as default option when adding new employee */}
+                                        <option name='department' value='Instructors'>Instructors</option>
+                                        <option name='department' value='Student Services'>Student Services</option>
+                                        <option name='department' value='Admissions'>Admissions</option>
+                                        <option name='department' value='Exec Team'>Exec Team</option>
+                                        <option name='department' value='Office Staff'>Office Staff</option>
+                                    </select>
                                 </div>
 
                                 <div className='form-group mb-2'>
-                                    <label className='form-label'> Location: </label>
-                                    <input
-                                        type = 'text'
-                                        placeholder='Choose location'
-                                        name='location'
-                                        className='form-control'
-                                        value={location} //getting the value using state
-                                        onChange={(e) => setLocation(e.target.value)} //calls setLocation function to update state value
-                                    >
-                                    </input>
+                                    <label className='form-label'> Location: </label><br></br>
+                                    <select className='form-control' defaultValue={location} value={location} onChange={(e)=> setLocation(e.target.value)}> {/* creates dropdown options for choosing location */}
+                                        <option name='location' value='select-location' disabled>Select your location...</option> {/* sets this as default option when adding new employee */}
+                                        <option name='location' value='Edinburgh'>Edinburgh</option>
+                                        <option name='location' value='Glasgow'>Glasgow</option>
+                                        <option name='location' value='Remote'>Remote</option>
+                                    </select>
                                 </div>
 
                                 <button className='btn btn-success float-end ms-1' onClick={(e) => saveOrUpdateEmployee(e)}>Submit</button>

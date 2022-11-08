@@ -24,7 +24,7 @@ public class SpringbootBackendApplication implements CommandLineRunner { //provi
 		employee.setLastName("Javaid");
 		employee.setEmail("aqib.javaid@codeclan.com");
 		employee.setRole("Technical Assistant");
-		employee.setDepartment("Delivery Team");
+		employee.setDepartment("Instructors");
 		employee.setLocation("Glasgow");
 		employeeRepository.save(employee); //saves new employee object to the database
 	}
