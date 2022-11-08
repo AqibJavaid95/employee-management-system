@@ -22,7 +22,9 @@ public class SpringbootBackendApplication implements CommandLineRunner { //provi
 		Employee employee = new Employee(); // creates an object of employee
 		employee.setFirstName("Aqib");
 		employee.setLastName("Javaid");
+		employee.setEmail("aqib.javaid@codeclan.com");
 		employee.setRole("Technical Assistant");
+		employee.setDepartment("Delivery Team");
 		employee.setLocation("Glasgow");
 		employeeRepository.save(employee); //saves new employee object to the database
 	}

@@ -6,7 +6,9 @@ const AddEmployeeComponent = () => {
 
     const [firstName, setFirstName] = useState('') //setFirstName is a function which updates the state value of the variable firstName
     const [lastName, setLastName] = useState('')
+    const [email, setEmail] = useState('')
     const [role, setRole] = useState('')
+    const [department, setDepartment] = useState('')
     const [location, setLocation] = useState('')
     const navigate = useNavigate(); //returns user to list of employees page
     const {id} = useParams(); //provides object which contains key/value pairs
@@ -14,7 +16,7 @@ const AddEmployeeComponent = () => {
     const saveOrUpdateEmployee = (e) => {
         e.preventDefault(); //prevents page from refreshing whenever we submit the form
 
-        const employee = {firstName, lastName, role, location}
+        const employee = {firstName, lastName, email, role, department, location}
 
         if(id){ //checks if id contains any value and if it does then calls updateEmployee function, if not then calls createEmployee function
             EmployeeService.updateEmployee(id, employee).then((response) =>{
@@ -45,13 +47,15 @@ const AddEmployeeComponent = () => {
             EmployeeService.getEmployeeById(id).then((response) => { //makes a rest api call to retrieve the employee object
                 setFirstName(response.data.firstName)
                 setLastName(response.data.lastName)
+                setEmail(response.data.email)
                 setRole(response.data.role)
+                setDepartment(response.data.department)
                 setLocation(response.data.location)
             }).catch(error => {
                 console.log(error) 
             })
         }
-    }, [])
+    }, [id])
 
     const title = () => {
 
@@ -100,6 +104,19 @@ const AddEmployeeComponent = () => {
                                 </div>
 
                                 <div className='form-group mb-2'>
+                                    <label className='form-label'> Email: </label>
+                                    <input
+                                        type = 'email'
+                                        placeholder='Enter email address'
+                                        name='email'
+                                        className='form-control'
+                                        value={email} //getting the value using state
+                                        onChange={(e) => setEmail(e.target.value)} //calls setEmail function to update state value
+                                    >
+                                    </input>
+                                </div>
+
+                                <div className='form-group mb-2'>
                                     <label className='form-label'> Role: </label>
                                     <input
                                         type = 'text'
@@ -113,10 +130,23 @@ const AddEmployeeComponent = () => {
                                 </div>
 
                                 <div className='form-group mb-2'>
+                                    <label className='form-label'> Department: </label>
+                                    <input
+                                        type = 'text'
+                                        placeholder='Choose department'
+                                        name='department'
+                                        className='form-control'
+                                        value={department} //getting the value using state
+                                        onChange={(e) => setDepartment(e.target.value)} //calls setDepartment function to update state value
+                                    >
+                                    </input>
+                                </div>
+
+                                <div className='form-group mb-2'>
                                     <label className='form-label'> Location: </label>
                                     <input
                                         type = 'text'
-                                        placeholder='Enter location'
+                                        placeholder='Choose location'
                                         name='location'
                                         className='form-control'
                                         value={location} //getting the value using state
@@ -125,7 +155,7 @@ const AddEmployeeComponent = () => {
                                     </input>
                                 </div>
 
-                                <button className='btn btn-success float-end' onClick={(e) => saveOrUpdateEmployee(e)}>Submit</button>
+                                <button className='btn btn-success float-end ms-1' onClick={(e) => saveOrUpdateEmployee(e)}>Submit</button>
                                 <Link to="/employees" className="btn btn-danger float-end"> Cancel </Link> {/* cancel button which returns user to list of employees page */}
 
                             </form>

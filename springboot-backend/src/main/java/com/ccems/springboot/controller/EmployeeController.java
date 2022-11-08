@@ -46,7 +46,9 @@ public class EmployeeController { //handles http requests, and will define rest 
         //retrieves new info from employeeDetails and updates updateEmployee object with new info
         updateEmployee.setFirstName(employeeDetails.getFirstName());
         updateEmployee.setLastName(employeeDetails.getLastName());
+        updateEmployee.setEmail(employeeDetails.getEmail());
         updateEmployee.setRole(employeeDetails.getRole());
+        updateEmployee.setDepartment(employeeDetails.getDepartment());
         updateEmployee.setLocation(employeeDetails.getLocation());
 
         employeeRepository.save(updateEmployee); //saves the updated updateEmployee object to the database

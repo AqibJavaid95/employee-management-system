@@ -40,7 +40,9 @@ const ListEmployeeComponent = () => {
                         <th> Employee Id</th>
                         <th> Employee First Name </th>
                         <th> Employee Last Name </th>
+                        <th> Employee Email</th>
                         <th> Employee Role </th>
+                        <th> Employee Department </th>
                         <th> Employee Location </th>
                         <th> Actions </th>
                     </tr>
@@ -53,11 +55,13 @@ const ListEmployeeComponent = () => {
                                 <td>{employee.id}</td>
                                 <td>{employee.firstName}</td>
                                 <td>{employee.lastName}</td>
+                                <td>{employee.email}</td>
                                 <td>{employee.role}</td>
+                                <td>{employee.department}</td>
                                 <td>{employee.location}</td>
                                 <td>
                                     <Link className='btn btn-info' to={`/edit-employee/${employee.id}`}> Edit </Link>
-                                    <button className='btn btn-danger ms-1' onClick={() => deleteEmployee(employee.id)}> Delete </button>
+                                    <button className='btn btn-danger mt-1' onClick={() => deleteEmployee(employee.id)}> Delete </button>
                                 </td>
                             </tr>
                         )
