@@ -132,7 +132,7 @@ const AddEmployeeComponent = () => {
                                 <div className='form-group mb-2'>
                                     <label className='form-label'> Department: </label><br></br>
                                     <select className='form-control' defaultValue={department} value={department} onChange={(e)=> setDepartment(e.target.value)}> {/* creates dropdown options for choosing department */}
-                                        <option name='department' value='select-department' disabled>Select your department...</option> {/* sets this as default option when adding new employee */}
+                                        <option name='department' value='select-department' disabled>Select department...</option> {/* sets this as default option when adding new employee */}
                                         <option name='department' value='Instructors'>Instructors</option>
                                         <option name='department' value='Student Services'>Student Services</option>
                                         <option name='department' value='Admissions'>Admissions</option>
@@ -144,7 +144,7 @@ const AddEmployeeComponent = () => {
                                 <div className='form-group mb-2'>
                                     <label className='form-label'> Location: </label><br></br>
                                     <select className='form-control' defaultValue={location} value={location} onChange={(e)=> setLocation(e.target.value)}> {/* creates dropdown options for choosing location */}
-                                        <option name='location' value='select-location' disabled>Select your location...</option> {/* sets this as default option when adding new employee */}
+                                        <option name='location' value='select-location' disabled>Select location...</option> {/* sets this as default option when adding new employee */}
                                         <option name='location' value='Edinburgh'>Edinburgh</option>
                                         <option name='location' value='Glasgow'>Glasgow</option>
                                         <option name='location' value='Remote'>Remote</option>
